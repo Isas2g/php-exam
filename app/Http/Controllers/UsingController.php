@@ -15,7 +15,7 @@ class UsingController extends Controller
      */
     public function index()
     {
-        $usages = Using::all();
+        $usages = Using::All();
         return response()->json([
             'usages' => $usages
         ]);

@@ -9,7 +9,7 @@ use Illuminate\Queue\SerializesModels;
 class MailSender extends Mailable
 {
     use Queueable, SerializesModels;
-    public $textString;
+    protected $textString;
     /**
      * Create a new message instance.
      *
@@ -27,13 +27,11 @@ class MailSender extends Mailable
      */
     public function build()
     {
-        // return $this->from('juicyluv@mail.ru')
-        //     ->to('whatisyouandme@mail.ru')
-        //     ->with([
-        //         'textString' => $this->textString,
-        //     ])
-        //     ->view('mails.mail');
-
-        return $this->subject('test')->view('mails.mail');
+        return $this->from('juicyluv@mail.ru')
+            ->to('whatisyouandme@mail.ru')
+            ->with([
+                'textString' => $this->textString,
+            ])
+            ->view('mails.mail');
     }
 }

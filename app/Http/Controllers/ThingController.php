@@ -7,8 +7,6 @@ use Illuminate\Http\Request;
 use App\Models\Thing;
 use App\Models\ThingDescription;
 use App\Models\User;
-use App\Mail\MailSender;
-use Illuminate\Support\Facades\Mail;
 
 class ThingController extends Controller
 {
@@ -42,7 +40,7 @@ class ThingController extends Controller
         $master = User::find($thing->master);
 
         $thing->master()->associate($master);
-        $thing->save();
+        $result = $thing->save();
 
         $td = new ThingDescription();
         $td->description = $thing->description;
@@ -50,7 +48,9 @@ class ThingController extends Controller
 
         $td->save();
 
-        MyQueue::dispatch($thing);
+        if ($result) {
+            MyQueue::dispatch($thing);
+        }
 
         return response()->json([
             'thing' => $thing
@@ -145,16 +145,10 @@ class ThingController extends Controller
         $userId = request('userId');
 
         $thing = Thing::findOrFail($thingId);
-        $user = User::findOrFail($userId);
-        $user->notifications_amount = $user->notifications_amount + 1;
-        $user->save();
         $thing->master = $userId;
         $master = User::find($thing->master);
         $thing->master()->associate($master);
         $thing->save();
-
-        
-        MyQueue::dispatch($thing);
 
         $response = [
             'thing' => $thing

@@ -1,10 +1,10 @@
-@extends('layout.main-layout')
+@extends('layouts.main-layout')
 
-@section('title', 'Main Page')
+@section('title', 'Главная страница')
 
 @section('content')
-<h2>New content</h2>
+<h2>Вывод данных описания вещей из базы данных</h2>
 @foreach($things as $thing)
-<p>{{ $thing -> description }}</p>
+<p>{{ $thing -> name }}</p>
 @endforeach
 @endsection()

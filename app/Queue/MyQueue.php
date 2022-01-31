@@ -34,8 +34,6 @@ class MyQueue implements ShouldQueue
     public function handle()
     {
         $mail = new MailSender('Вещь ' . $this->thing->name . ' была успешно добавлена.');
-        // Mail::to($this->thing->master->email)->send($mail);
-        // Mail::to("lineblaze144@gmail.com")->send($mail);
-        Mail::to("parabell241@gmail.com")->send($mail);
+        Mail::send($mail);
     }
 }

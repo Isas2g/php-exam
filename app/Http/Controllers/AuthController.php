@@ -31,8 +31,7 @@ class AuthController extends Controller
         $user = User::create([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
-            'password' => Hash::make($request->input('password')),
-            'notifications_amount' => 0
+            'password' => Hash::make($request->input('password'))
         ]);
 
         $token = $user->createToken('myapptoken')->plainTextToken;
@@ -67,5 +66,13 @@ class AuthController extends Controller
         ];
 
         return response($response, 201);
+    }
+
+    public function show()
+    {
+        $users = User::All();
+        return response()->json([
+            'users' => $users
+        ]);
     }
 }

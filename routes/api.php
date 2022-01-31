@@ -7,7 +7,6 @@ use App\Http\Controllers\PlaceController;
 use App\Http\Controllers\ThingController;
 use App\Http\Controllers\UsingController;
 use App\Http\Controllers\ThingDescriptionController;
-use App\Http\Controllers\SeenController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +25,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/auth/signup', [AuthController::class, 'registration']);
 Route::post('/auth/signin', [AuthController::class, 'login'])->name('login');
+Route::get('/users', [AuthController::class, 'show'])->name('show');
 
 // Things
 Route::get('/things', [ThingController::class, 'index']);
@@ -50,6 +50,3 @@ Route::get('/usages/{id}', [UsingController::class, 'show']);
 Route::post('/usages', [UsingController::class, 'store']);
 Route::put('/usages/{id}', [UsingController::class, 'update']);
 Route::delete('/usages/{id}', [UsingController::class, 'destroy']);
-
-// Seen
-Route::get('/seen/{id}', [SeenController::class, 'index']);

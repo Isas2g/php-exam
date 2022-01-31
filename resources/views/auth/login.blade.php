@@ -1,4 +1,4 @@
-@extends('layout.main-layout')
+@extends('layouts.main-layout')
 @section('content')
 
 <h3>Авторизация</h3>
